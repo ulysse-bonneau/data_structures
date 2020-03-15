@@ -15,13 +15,14 @@
      * @tparam T The type/class of the stack elements
      */
     template <typename T>
-    class stack {
+    class Stack {
         private:
             std::vector<T> m_stack;
         public:
             T top();
             T pop();
             void push(T t);
+            int size();
             bool empty();
     };
 
@@ -31,7 +32,7 @@
      * @return The element at the top of the stack
      */
     template <typename T>
-    T stack<T>::top() {
+    T Stack<T>::top() {
         if(empty())
             throw std::out_of_range("Stack is empty.");
         return m_stack.back();
@@ -43,7 +44,7 @@
      * @return The element at the top of the stack
      */
     template<typename T>
-    T stack<T>::pop() {
+    T Stack<T>::pop() {
         if(empty())
             throw std::out_of_range("Stack is empty.");
         T top = m_stack.back();
@@ -57,8 +58,18 @@
      * @param t The element to add
      */
     template<typename T>
-    void stack<T>::push(T t) {
+    void Stack<T>::push(T t) {
         m_stack.push_back(t);
+    }
+
+    /**
+     * @brief Returns the stack's size
+     * @tparam T The type/class of the stack elements
+     * @return the stack's size
+     */
+    template <typename T>
+    int Stack<T>::size() {
+        return m_stack.size();
     }
 
     /**
@@ -67,7 +78,7 @@
      * @return true if the stack is empty, else false
      */
     template<typename T>
-    bool stack<T>::empty() {
+    bool Stack<T>::empty() {
         return m_stack.empty();
     }
 
