@@ -28,9 +28,13 @@ class LinkedList {
         int m_size; //The size of the list
 
     public:
-        LinkedList();
+        LinkedList ();
         T get (int index);
         void add (T value);
+        void insert (int index, T value);
+        void remove (int index);
+        bool empty ();
+        bool contains (T value);
         int size ();
 };
 
@@ -52,9 +56,9 @@ T LinkedList<T>::get (int index) {
     if (index >= size())
         throw std::out_of_range("Index out of range.");
 
-    Node* cur = m_head;
+    Node* cur {m_head};
 
-    int cpt = 0;
+    int cpt {0};
     while (cpt++ != index)
         cur = cur->m_next;
 
@@ -78,13 +82,82 @@ void LinkedList<T>::add (T value) {
         return;
     }
 
-    Node *cur = m_head;
-    while (cur->m_next != NULL) {
+    Node *cur {m_head};
+    while (cur->m_next != NULL)
         cur = cur->m_next;
-    }
+
 
     cur->m_next = n;
     ++m_size;
+}
+
+template <typename T>
+void LinkedList<T>::insert (int index, T value) {
+    if (index > size())
+        throw std::out_of_range("Index out of range.");
+
+    if (index == size()) {
+        add(value);
+        return;
+    }
+    Node *n = new Node();
+    n->m_value = value;
+
+    if (index == 0) {
+        n->m_next = m_head;
+        m_head = n;
+        return;
+    }
+
+    int cpt {0};
+    Node *cur {m_head};
+    while (++cpt != index) {
+        cur = cur->m_next;
+    }
+
+    n->m_next = cur->m_next;
+
+    cur->m_next = n;
+    ++m_size;
+}
+
+template <typename T>
+void LinkedList<T>::remove (int index) {
+    if (index >= size())
+        throw std::out_of_range("Index out of range.");
+
+    if (index == 0) {
+        m_head = m_head->m_next;
+        --m_size;
+        return;
+    }
+
+    int cpt {0};
+    Node *cur = m_head;
+    while (++cpt != index)
+        cur = cur->m_next;
+
+    cur->m_next = cur->m_next->m_next;
+    --m_size;
+}
+
+template <typename T>
+bool LinkedList<T>::empty () {
+    return m_head == NULL;
+}
+
+template <typename T>
+bool LinkedList<T>::contains (T value) {
+    if (empty())
+        return false;
+
+    Node *cur = m_head;
+    while (cur) {
+        if (cur->m_value == value)
+            return true;
+        cur = cur->m_next;
+    }
+    return false;
 }
 
 /**
