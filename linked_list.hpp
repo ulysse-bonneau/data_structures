@@ -91,6 +91,12 @@ void LinkedList<T>::add (T value) {
     ++m_size;
 }
 
+/**
+ * @brief Inserts a value at a given position in the list
+ * @tparam T The type/class of the list elements
+ * @param index the position where the value needs to be inserted
+ * @param value the value to insert to the list
+ */
 template <typename T>
 void LinkedList<T>::insert (int index, T value) {
     if (index > size())
@@ -121,6 +127,11 @@ void LinkedList<T>::insert (int index, T value) {
     ++m_size;
 }
 
+/**
+ * @brief Removes the value for a given position in the list
+ * @tparam T The type/class of the list elements
+ * @param index the position where an element needs to be removed
+ */
 template <typename T>
 void LinkedList<T>::remove (int index) {
     if (index >= size())
@@ -141,11 +152,22 @@ void LinkedList<T>::remove (int index) {
     --m_size;
 }
 
+/**
+ * @brief Checks if the list is empty
+ * @tparam T The type/class of the list elements
+ * @return true if it is empty, else false
+ */
 template <typename T>
 bool LinkedList<T>::empty () {
     return m_head == NULL;
 }
 
+/**
+ * @brief Checks if the list contains an element
+ * @tparam T The type/class of the list elements
+ * @param value The value to check if it is contained
+ * @return true if it contains the element, else false
+ */
 template <typename T>
 bool LinkedList<T>::contains (T value) {
     if (empty())
